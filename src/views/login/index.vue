@@ -44,7 +44,16 @@ export default {
         check: false // 是否勾选
       },
       loginRules: {
-        // 验证规则 验证表单的
+        // 验证规则 验证登录表单 key(字段名):value(数组)
+        // required true -> 必填
+        mobile: [{ required: true, message: '请输入您的手机号' }, {
+          pettern: /^1[3456789]\d{9}$/,
+          message: '手机格式不正确'
+        }],
+        code: [{ required: true, message: '请输入您的验证码' }, {
+          pattern: /^\d{6}$/,
+          message: '验证码格式不正确'
+        }]
       }
     }
   }
