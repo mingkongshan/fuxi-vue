@@ -7,7 +7,7 @@
       </div>
 
       <!-- 登录表单 表单容器 el-form 需要绑定model属性 rules属性绑定验证规则对象-->
-      <el-form style="margin-top:30px" :model="loginForm" :rules="loginRules">
+      <el-form ref="myForm" style="margin-top:30px" :model="loginForm" :rules="loginRules">
         <!-- 表单域 el-form-item => 代表一行 => 校验 => prop => 要校验的字段名-->
         <el-form-item prop="mobile">
           <!-- 放置具体的组件  登录手机号 v-model 双向绑定数据对象-->
@@ -25,7 +25,8 @@
         </el-form-item>
 
         <el-form-item>
-          <el-button style="width:100%" type="primary">登录</el-button>
+          <!-- 注册点击事件 -->
+          <el-button @click="submitLogin" type="primary" style="width:100%" >登录</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -48,13 +49,39 @@ export default {
         // required true -> 必填
         mobile: [{ required: true, message: '请输入您的手机号' }, {
           pettern: /^1[3456789]\d{9}$/,
-          message: '手机格式不正确'
+          message: '请输入合法的手机号'
         }],
         code: [{ required: true, message: '请输入您的验证码' }, {
           pattern: /^\d{6}$/,
           message: '验证码格式不正确'
+        }],
+        // 自定义函数
+        check: [{
+          validator: function (rule, value, callback) {
+          //   rule当前的规则 没什么用
+          // value指的就是我们要校验的字段的值
+            if (value) {
+            //  认为校验通过 放过去
+              callback() // 直接执行callback 认为通过
+            } else {
+            //  认为校验不通过 要提示信息
+              callback(new Error('您必须无条件同意被我们坑'))
+            }
+          }
         }]
       }
+    }
+  },
+  methods: {
+    // 提交登录表单
+    submitLogin () {
+      // el-form实例
+      this.$refs.myForm.validate(function (isOK) {
+        if (isOK) {
+          // 认为前端校验表单成功
+          console.log('前端检验成功,发送用户和密码到后台去校验')
+        }
+      })
     }
   }
 
