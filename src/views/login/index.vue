@@ -26,7 +26,7 @@
 
         <el-form-item>
           <!-- 注册点击事件 -->
-          <el-button @click="submitLogin" type="primary" style="width:100%" >登录</el-button>
+          <el-button @click="submitLogin" type="primary" style="width:100%">登录</el-button>
         </el-form-item>
       </el-form>
     </el-card>
