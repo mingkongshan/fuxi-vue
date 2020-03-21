@@ -91,6 +91,7 @@ export default {
             this.$router.push('/home')
             // 成功以后才会进入到then
           }).catch(() => {
+            // elementUI的方法
             this.$message({
               message: '手机号或者验证码错误',
               type: 'warning'
