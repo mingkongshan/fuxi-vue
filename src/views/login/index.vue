@@ -11,7 +11,7 @@
         <!-- 表单域 el-form-item => 代表一行 => 校验 => prop => 要校验的字段名-->
         <el-form-item prop="mobile">
           <!-- 放置具体的组件  登录手机号 v-model 双向绑定数据对象-->
-          <el-input v-model="loginForm.model" placeHolder="请输入手机号"></el-input>
+          <el-input v-model="loginForm.mobile" placeHolder="请输入手机号"></el-input>
         </el-form-item>
 
         <el-form-item prop="code">
@@ -87,15 +87,19 @@ export default {
             data: this.loginForm
           }).then(result => {
             window.localStorage.setItem('user-token', result.data.data.token) // 前端缓存令牌
+            // 编程式导航
+            this.$router.push('/home')
             // 成功以后才会进入到then
-          }).catch(error => {
-            console.log(error)
+          }).catch(() => {
+            this.$message({
+              message: '手机号或者验证码错误',
+              type: 'warning'
+            })
           })
         }
       })
     }
   }
-
 }
 </script>
 
